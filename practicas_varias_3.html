@@ -86,8 +86,76 @@
     const display = document.querySelector('#display');
     const numeros = document.querySelectorAll('.numero');
     const operaciones = document.querySelectorAll('.operacion');
-    const valorActual = document.querySelector('#valor-actual');
-    const valorAnterior = document.querySelector('#valor-anterior');
-    
+    const displayValorActual = document.querySelector('#valor-actual');
+    const displayValorAnterior = document.querySelector('#valor-anterior');
+    class Calculadora{
+        suma(num1,num2){
+            return num1 + num2;
+        }
+        resta(num1,num2){
+            return num1 - num2;
+        }
+        multiplicacion(num1,num2){
+            return num1 * num2;
+        }
+        division(num1,num2){
+            return num1 / num2;
+        }
+    }
+    class Display{
+        constructor(displayValorActual, displayValorAnterior){
+            this.displayValorActual = displayValorActual;
+            this.displayValorAnterior = displayValorAnterior;
+            this.calculadora = new Calculadora();
+            this.tipoOperacion=undefined;
+            this.valorActual = '';
+            this.valorAnterior = '';
+            this.signo={
+                suma: '+',
+                resta: '-',
+                multiplicacion: '*',
+                division: '/'
+            };
+        }
+        borrar(){
+            this.valorActual = this.valorActual.toString().slice(0, -1);
+            this.imporimirValores();
+        }
+        borrarTodo(){
+            this.valorActual = '';
+            this.valorAnterior = '';
+            this.tipoOperacion = undefined;
+            this.imporimirValores();
+        }
+        computar(tipo){
+            this.tipoOperacion!=='igual'&&this.calcular
+            this.tipoOperacion = tipo;
+            this.valorAnterior = this.valorActual||this.valorAnterior;
+            this.valorActual = '';
+            this.imporimirValores();
+        }
+        agregarNumero(numero){
+            if(numero === '.' && this.valorActual.includes('.')){
+                return;
+            }
+            this.valorActual = numero+this.valorActual.toString();
+            this.imporimirValores();
+        }
+        imporimirValores(){
+            this.displayValorActual.textContent = this.valorActual;
+            this.displayValorAnterior.textContent = `
+                ${this.valorAnterior} ${this.signo[this.tipoOperacion]}
+            `;
+        }
+        calcular(){
+            const valorAnterior = parseFloat(this.valorAnterior);
+            const valorActual = parseFloat(this.valorActual);
+            if(isNaN(valorActual)||isNaN(valorAnterior)){
+                return;
+            }
+            this.valorActual = this.calculadora[this.tipoOperacion](valorAnterior, valorActual);
+        }
+    }
+
 </script>
 </html>
