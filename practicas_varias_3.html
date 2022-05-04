@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            width: 400px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        #numeros{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            width: 75%;
+            height: 100%;
+        }
+        #display{
+            width: 100%;
+            height: 100px;
+            margin-bottom: 7px;
+            border-radius: 9px;
+            box-shadow: 0px 0px 10px #000;
+        }
+        #btns{
+            height: 100%;
+            display: flex;
+        }
+        #operaciones{
+            height: 100%;
+            width: 25%;
+            display:grid;
+            grid-template-columns: repeat(1, 1fr);
+        }
+        button{
+            margin: 5px;
+            border-radius: 6px;
+            border:none;
+            box-shadow: 0px 0px 10px #000;
+            background-color: rgb(0, 0, 0);
+            color: #fff;
+        }
+        button:active{
+            transform: scale(.95);
+            background-color: red;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.703);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="display">
+            <div id="valor-actual"></div>
+            <div id="valor-anterior"></div>
+        </div>
+        <div id="btns">
+            <div id="numeros">
+                <button class="numero">0</button>
+                <button class="numero">1</button>
+                <button class="numero">2</button>
+                <button class="numero">3</button>
+                <button class="numero">4</button>
+                <button class="numero">5</button>
+                <button class="numero">6</button>
+                <button class="numero">7</button>
+                <button class="numero">8</button>
+                <button class="numero">9</button>
+                <button class="numero">C</button>
+                <button class="numero">CE</button>
+            </div>
+            <div id="operaciones">
+                <button class="operacion">+</button>
+                <button class="operacion">-</button>
+                <button class="operacion">*</button>
+                <button class="operacion">/</button>
+                <button class="operacion">=</button>
+        </div>
+    </div>
+</body>
+<script>
+    const display = document.querySelector('#display');
+    const numeros = document.querySelectorAll('.numero');
+    const operaciones = document.querySelectorAll('.operacion');
+    const valorActual = document.querySelector('#valor-actual');
+    const valorAnterior = document.querySelector('#valor-anterior');
+    
+</script>
+</html>
