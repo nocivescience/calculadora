@@ -128,7 +128,7 @@
             this.imporimirValores();
         }
         computar(tipo){
-            this.tipoOperacion!=='igual'&&this.calcular
+            this.tipoOperacion!=='igual'&&this.calcular();
             this.tipoOperacion = tipo;
             this.valorAnterior = this.valorActual||this.valorAnterior;
             this.valorActual = '';
@@ -138,13 +138,13 @@
             if(numero === '.' && this.valorActual.includes('.')){
                 return;
             }
-            this.valorActual = numero+this.valorActual.toString();
+            this.valorActual = numero+this.valorActual.toString()+numero.toString();
             this.imporimirValores();
         }
         imporimirValores(){
             this.displayValorActual.textContent = this.valorActual;
             this.displayValorAnterior.textContent = `
-                ${this.valorAnterior} ${this.signo[this.tipoOperacion]}
+                ${this.valorAnterior} ${this.signo[this.tipoOperacion]||''}
             `;
         }
         calcular(){
@@ -156,6 +156,16 @@
             this.valorActual = this.calculadora[this.tipoOperacion](valorAnterior, valorActual);
         }
     }
-
+    const displayEl = new Display(displayValorActual, displayValorAnterior);
+    numeros.forEach(numero => {
+        numero.addEventListener('click', () => {
+            displayEl.agregarNumero(numero.innerHTML);
+        });
+    });
+    operaciones.forEach(operacion => {
+        operacion.addEventListener('click', () => {
+            displayEl.computar(operacion.value);
+        });
+    })
 </script>
 </html>
