@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #container{
+            display: flex;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Mi calculadora</h1>
+    <input type="text" id="numero1"/>
+    <p>+</p>
+    <input type="text" id="numero2"/>
+    <p>=</p>
+    <input type="text" id="resultado"/>
+    </div>
+</body>
+<script>
+    const numero1 = document.getElementById('numero1');
+    const numero2 = document.getElementById('numero2');
+    const resultado = document.getElementById('resultado');
+    class Calculadora{
+        constructor(numero1, numero2){
+            this.numero1 = numero1;
+            this.numero2 = numero2;
+        }
+        sumar(){
+            return parseInt(this.numero1) + parseInt(this.numero2);
+        }
+        restar(){
+            return parseInt(this.numero1) - parseInt(this.numero2);
+        }
+        multiplicar(){
+            return parseInt(this.numero1) * parseInt(this.numero2);
+        }
+        dividir(){
+            return parseInt(this.numero1) / parseInt(this.numero2);
+        }
+    }
+    const calculadora = new Calculadora(numero1.value, numero2.value);
+    resultado.value = calculadora.sumar();
+</script>
+</html>

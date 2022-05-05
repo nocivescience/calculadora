@@ -6,11 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
         #container{
             width: 400px;
             height: 300px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            border: 1px solid black;
+            padding: 20px;
         }
         #numeros{
             display: grid;
@@ -20,15 +30,22 @@
             height: 100%;
         }
         #display{
+            font-family: 'Press Start 2P', cursive;
+            color: greenyellow;
             width: 100%;
             height: 100px;
             margin-bottom: 7px;
             border-radius: 9px;
             box-shadow: 0px 0px 10px #000;
+            padding: 5px;
+            background-color: black;
+            align-self: center;
         }
         #btns{
             height: 100%;
             display: flex;
+            justify-content: center;
+            align-items: center;
         }
         #operaciones{
             height: 100%;
@@ -74,11 +91,11 @@
                 <button class="numero">CE</button>
             </div>
             <div id="operaciones">
-                <button class="operacion">+</button>
-                <button class="operacion">-</button>
-                <button class="operacion">*</button>
-                <button class="operacion">/</button>
-                <button class="operacion">=</button>
+                <button class="operacion" value="suma">+</button>
+                <button class="operacion" value="resta">-</button>
+                <button class="operacion" value="multiplicacion">*</button>
+                <button class="operacion" value="division">/</button>
+                <button class="operacion" value="igual">=</button>
         </div>
     </div>
 </body>
@@ -86,8 +103,8 @@
     const display = document.querySelector('#display');
     const numeros = document.querySelectorAll('.numero');
     const operaciones = document.querySelectorAll('.operacion');
-    const displayValorActual = document.querySelector('#valor-actual');
-    const displayValorAnterior = document.querySelector('#valor-anterior');
+    const displayValorActualEl = document.querySelector('#valor-actual');
+    const displayValorAnteriorEl = document.querySelector('#valor-anterior');
     class Calculadora{
         suma(num1,num2){
             return num1 + num2;
@@ -119,29 +136,29 @@
         }
         borrar(){
             this.valorActual = this.valorActual.toString().slice(0, -1);
-            this.imporimirValores();
+            this.imprimirValores();
         }
         borrarTodo(){
             this.valorActual = '';
             this.valorAnterior = '';
             this.tipoOperacion = undefined;
-            this.imporimirValores();
+            this.imprimirValores();
         }
         computar(tipo){
             this.tipoOperacion!=='igual'&&this.calcular();
             this.tipoOperacion = tipo;
             this.valorAnterior = this.valorActual||this.valorAnterior;
             this.valorActual = '';
-            this.imporimirValores();
+            this.imprimirValores();
         }
         agregarNumero(numero){
             if(numero === '.' && this.valorActual.includes('.')){
                 return;
             }
-            this.valorActual = numero+this.valorActual.toString()+numero.toString();
-            this.imporimirValores();
+            this.valorActual = this.valorActual.toString()+numero.toString();
+            this.imprimirValores();
         }
-        imporimirValores(){
+        imprimirValores(){
             this.displayValorActual.textContent = this.valorActual;
             this.displayValorAnterior.textContent = `
                 ${this.valorAnterior} ${this.signo[this.tipoOperacion]||''}
@@ -156,7 +173,7 @@
             this.valorActual = this.calculadora[this.tipoOperacion](valorAnterior, valorActual);
         }
     }
-    const displayEl = new Display(displayValorActual, displayValorAnterior);
+    const displayEl = new Display(displayValorActualEl, displayValorAnteriorEl);
     numeros.forEach(numero => {
         numero.addEventListener('click', () => {
             displayEl.agregarNumero(numero.innerHTML);
