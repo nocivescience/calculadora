@@ -7,6 +7,7 @@
     <title>Document</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
         body{
             display: flex;
             flex-direction: column;
@@ -14,13 +15,15 @@
             align-items: center;
         }
         #container{
-            width: 400px;
+            width: 800px;
             height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             border: 1px solid black;
             padding: 20px;
+            border-radius: 5px;
+            position: relative;
         }
         #numeros{
             display: grid;
@@ -51,7 +54,7 @@
             height: 100%;
             width: 25%;
             display:grid;
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: repeat(2, 1fr);
         }
         button{
             margin: 5px;
@@ -60,6 +63,12 @@
             box-shadow: 0px 0px 10px #000;
             background-color: rgb(0, 0, 0);
             color: #fff;
+            line-height: 10px;
+        }
+        button:not(.numero){
+            background-color: rgb(0, 67, 95);
+            color: #fff;
+            line-height: 10px;
         }
         button:active{
             transform: scale(.95);
@@ -67,10 +76,47 @@
             box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.703);
             color: #fff;
         }
+        h5{
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            margin-left: 10%;
+            width: 200px;
+        }
+        @media only screen and (max-width: 900px){
+            #container{
+                width: 60%;
+                height: 400px;
+            }
+            #btns{
+                flex-direction: column-reverse;
+            }
+            #operaciones{
+                width: 75%;
+                height: 35%;
+                display:grid;
+                grid-template-columns: repeat(5, 1fr);
+            }
+            #display{
+                font-size: 20px;
+                width: 72%;
+            }
+            h5{
+                margin-right: 10%;
+            }
+        }
+        @media only screen and (max-width: 400px){
+            h5{
+                margin: 20px 0;
+                display: flex;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="container">
+        <h5>Farnaz 💖 Aani Calculator</h5>
         <div id="display">
             <div id="valor-actual"></div>
             <div id="valor-anterior"></div>
@@ -87,14 +133,16 @@
                 <button class="numero">7</button>
                 <button class="numero">8</button>
                 <button class="numero">9</button>
-                <button class="numero">C</button>
-                <button class="numero">CE</button>
+                <button onclick="displayEl.borrarTodo()">C</button>
+                <button onclick="displayEl.borrar()">CE</button>
             </div>
             <div id="operaciones">
                 <button class="operacion" value="suma">+</button>
                 <button class="operacion" value="resta">-</button>
                 <button class="operacion" value="multiplicacion">*</button>
                 <button class="operacion" value="division">/</button>
+                <button class="operacion" value="entire">//</button>
+                <button class="operacion" value="module">%</button>
                 <button class="operacion" value="igual">=</button>
         </div>
     </div>
@@ -118,6 +166,12 @@
         division(num1,num2){
             return num1 / num2;
         }
+        entire(num1,num2){
+            return Math.floor(num1 / num2);
+        }
+        module(num1,num2){
+            return num1 % num2;
+        }
     }
     class Display{
         constructor(displayValorActual, displayValorAnterior){
@@ -131,7 +185,9 @@
                 suma: '+',
                 resta: '-',
                 multiplicacion: '*',
-                division: '/'
+                division: '/',
+                entire: '//',
+                module: '%',
             };
         }
         borrar(){
